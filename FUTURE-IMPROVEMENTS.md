@@ -39,6 +39,15 @@
    - **Impact**: Have to remember paths or rely on shell configuration
    - **Suggested Tool**: `install-ai-tools` - script to globally link all AI tools
 
+4. **AI-PR-Dev Rate Limit on PR Review**
+   - **Issue**: AI provider rate limit exceeded during PR review
+   - **Impact**: PR merged without AI review feedback
+   - **Suggested Fix**: 
+     - Add retry logic with exponential backoff
+     - Queue reviews when rate limited
+     - Show estimated wait time
+     - Alert when rate limits are being hit frequently (Lifecycle Observer feature!)
+
 ---
 
 ## Improvements for Dev Lifecycle
