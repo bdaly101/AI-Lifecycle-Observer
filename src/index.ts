@@ -86,15 +86,7 @@ export {
   type EfficiencyAnalysis,
 } from './collectors/index.js';
 
-// Export wrapper
-export {
-  wrapTool,
-  wrapToolSync,
-  createTrackedExecution,
-  tracked,
-  type WrapOptions,
-  type WrapResult,
-} from './hooks/wrapper.js';
+// Note: wrapTool and related exports are now in ./integrations/index.js
 
 // Export core detection
 export {
@@ -183,4 +175,36 @@ export {
   type LifecycleReportOptions,
   type LifecycleReportResult,
 } from './reporters/index.js';
+
+// Export integrations (includes wrapTool, etc.)
+export {
+  // Main wrapper functions
+  wrapTool,
+  wrapToolSync,
+  createTrackedExecution,
+  tracked,
+  createExecutionRecord,
+  // Tool-specific integrations
+  createPRDevIntegration,
+  createFeatureBuilderIntegration,
+  createTestGeneratorIntegration,
+  createDocsGeneratorIntegration,
+  createSQLDevIntegration,
+  // Verification
+  verifyIntegration,
+  // Types
+  type WrapOptions,
+  type WrapResult,
+  type PRDevIntegrationOptions,
+  type PRReviewResult,
+  type FeatureBuilderIntegrationOptions,
+  type FeatureImplementResult,
+  type TestGeneratorIntegrationOptions,
+  type TestGenerateResult,
+  type DocsGeneratorIntegrationOptions,
+  type DocsGenerateResult,
+  type SQLDevIntegrationOptions,
+  type SQLDevGenerateResult,
+  type IntegrationStatus,
+} from './integrations/index.js';
 

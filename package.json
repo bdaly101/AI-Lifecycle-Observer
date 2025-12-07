@@ -16,6 +16,14 @@
     "./wrapper": {
       "types": "./dist/hooks/wrapper.d.ts",
       "import": "./dist/hooks/wrapper.js"
+    },
+    "./integrations": {
+      "types": "./dist/integrations/index.d.ts",
+      "import": "./dist/integrations/index.js"
+    },
+    "./integrations/*": {
+      "types": "./dist/integrations/*.d.ts",
+      "import": "./dist/integrations/*.js"
     }
   },
   "files": [
