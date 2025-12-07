@@ -108,11 +108,56 @@
 
 ---
 
+## Phase 2 Observations
+
+### What Worked Well
+
+- ✅ **Feature branch workflow** - Clean separation of work on `feature/phase-2-execution-tracking`
+- ✅ **TypeScript strict mode** - Caught simple-git import issues early
+- ✅ **Vitest testing** - Fast feedback loop with 12 tests passing in 459ms
+- ✅ **Error pattern matching** - Pattern-based categorization is flexible and extensible
+
+### Friction Points
+
+1. **simple-git API Changes**
+   - **Issue**: Default export changed, required `import { simpleGit }` instead of `import simpleGit`
+   - **Impact**: Minor - TypeScript caught it immediately
+   - **Observation**: Keep dependencies up to date and check changelogs
+
+2. **FileStatusResult Types**
+   - **Issue**: simple-git's status files don't have insertions/deletions properties
+   - **Impact**: Had to simplify linesChanged extraction
+   - **Future Fix**: Use `diffSummary` for accurate line counts
+
+3. **GitHub CLI TLS Issues**
+   - **Issue**: `gh pr create` failed with TLS certificate error in sandbox
+   - **Impact**: Required `all` permissions to work around
+   - **Observation**: Same pattern as Phase 1 - sandbox friction continues
+
+### Ideas for Future Phases
+
+1. **linesChanged Metric**
+   - Use `git.diffSummary()` to get accurate insertions/deletions
+   - More useful for tracking code velocity
+
+2. **Error Fingerprinting**
+   - Hash error messages to identify unique errors
+   - Track first/last occurrence times
+   - Link related errors across executions
+
+3. **Async Queue for Recording**
+   - Don't block tool execution waiting for DB writes
+   - Queue execution records for async persistence
+   - Graceful degradation if queue fills up
+
+---
+
 ## Development Efficiency
 
 | Phase | Time Estimate | Actual | Efficiency | Blockers |
 |-------|--------------|--------|------------|----------|
 | Phase 1 | 2 weeks | 1 session | ~95% | Branch protection failed |
+| Phase 2 | 2 weeks | 1 session | ~98% | Minor type issues |
 
 ### Lessons Learned
 
@@ -120,6 +165,8 @@
 2. Feature branch workflow prevents issues
 3. TypeScript strict mode catches errors early
 4. Sandbox permissions can slow development
+5. Pattern-based error categorization is maintainable and extensible
+6. Tests provide confidence when refactoring
 
 ---
 
