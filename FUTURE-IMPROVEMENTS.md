@@ -271,6 +271,69 @@
 
 ---
 
+## Phase 5 Observations
+
+### What Worked Well
+
+- ✅ **Handlebars Integration** - Templates are expressive and maintainable
+- ✅ **Custom Helpers** - `formatDate`, `severityEmoji`, `percentage` helpers work well
+- ✅ **Separation of Concerns** - MarkdownGenerator, ProjectReporter, LifecycleReporter all have clear roles
+- ✅ **18 unit tests** - Good coverage of markdown generation
+- ✅ **90 total tests** - All phases accumulating solid test coverage
+
+### Friction Points
+
+1. **ReportingConfig Type Mismatch**
+   - **Issue**: Used wrong property names (`futureImprovementsPath` vs `futureImprovementsFilename`)
+   - **Impact**: Had to fix after typecheck
+   - **Tool Idea**: `type-explorer` - Quick lookup of interface properties
+
+2. **Function Signature Changes**
+   - **Issue**: `getActiveAlerts` and `getCriticalAlerts` changed from having params to no params
+   - **Impact**: Had to refactor to use `getAlerts()` with filter instead
+   - **Observation**: Keep repository APIs consistent
+
+3. **Unused Import Patterns Continue**
+   - **Issue**: Still importing unused types and functions
+   - **Impact**: Minor - TypeScript catches them
+   - **Tool Idea**: Auto-import cleanup in pre-commit hook
+
+### Architecture Highlights
+
+1. **Handlebars Template System**
+   - 3 main templates: Future Improvements, Lifecycle Improvements, Urgent Issues
+   - Shared helpers registered globally for consistency
+   - Easy to customize templates without changing code
+
+2. **Reporter Hierarchy**
+   - `MarkdownGenerator` - Pure template rendering
+   - `ProjectReporter` - Single project FUTURE-IMPROVEMENTS.md
+   - `LifecycleReporter` - Cross-project DEV-LIFECYCLE-IMPROVEMENTS.md
+
+3. **Trend Calculation**
+   - Compares current vs previous period metrics
+   - Uses threshold for "stable" determination
+   - Provides actionable trend indicators
+
+### Potential New Tools Identified
+
+1. **`type-explorer`** - Quick type/interface property lookup
+   - Input: type name
+   - Output: All properties with types
+   - Useful for avoiding property name typos
+
+2. **`report-preview`** - Preview generated markdown reports
+   - Generate reports in dry-run mode
+   - Render preview in terminal
+   - Helpful for template development
+
+3. **`template-tester`** - Test Handlebars templates interactively
+   - Input mock data
+   - See rendered output
+   - Validate template syntax
+
+---
+
 ## Development Efficiency
 
 | Phase | Time Estimate | Actual | Efficiency | Blockers |
@@ -279,6 +342,7 @@
 | Phase 2 | 2 weeks | 1 session | ~98% | Minor type issues |
 | Phase 3 | 2 weeks | 1 session | ~97% | Secret regex strictness |
 | Phase 4 | 2 weeks | 1 session | ~98% | Minor unused import issues |
+| Phase 5 | 2 weeks | 1 session | ~96% | Type mismatches, function signatures |
 
 ### Lessons Learned
 
@@ -292,6 +356,8 @@
 8. Test regex patterns with realistic data
 9. Channel-based notification architecture is flexible
 10. Check function signatures before use
+11. Verify type/interface property names against actual definitions
+12. Keep repository APIs consistent - avoid changing parameter counts
 
 ---
 

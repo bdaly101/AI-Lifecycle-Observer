@@ -154,6 +154,20 @@ export {
   createFileChannel,
   GitHubChannel,
   createGitHubChannel,
+  // Markdown generators
+  generateFutureImprovements,
+  generateLifecycleImprovements,
+  generateUrgentIssues,
+  getVersion,
+  calculateAge,
+  // Project reporter
+  ProjectReporter,
+  createProjectReporter,
+  getProjectReporter,
+  // Lifecycle reporter
+  LifecycleReporter,
+  createLifecycleReporter,
+  getLifecycleReporter,
   type NotificationChannel,
   type NotificationResult,
   type AlertReporterConfig,
@@ -161,5 +175,12 @@ export {
   type ConsoleChannelOptions,
   type FileChannelOptions,
   type GitHubChannelOptions,
+  type FutureImprovementsData,
+  type LifecycleImprovementsData,
+  type UrgentIssuesData,
+  type ProjectReportOptions,
+  type ProjectReportResult,
+  type LifecycleReportOptions,
+  type LifecycleReportResult,
 } from './reporters/index.js';
 
