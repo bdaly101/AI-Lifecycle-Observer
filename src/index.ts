@@ -48,6 +48,7 @@ export {
   getExecutions,
   getRecentExecutions,
   getExecutionSummary,
+  countExecutions,
   insertImprovement,
   getImprovements,
   getOpenImprovements,
@@ -62,4 +63,29 @@ export {
   getMetricsSnapshot,
   incrementExecutionMetrics,
 } from './database/index.js';
+
+// Export collectors
+export {
+  ExecutionCollector,
+  getExecutionCollector,
+  createExecutionCollector,
+  ErrorCollector,
+  getErrorCollector,
+  createErrorCollector,
+  type ExecutionHandle,
+  type StartOptions,
+  type ErrorFrequency,
+  type ErrorTrend,
+  type ErrorAnalysis,
+} from './collectors/index.js';
+
+// Export wrapper
+export {
+  wrapTool,
+  wrapToolSync,
+  createTrackedExecution,
+  tracked,
+  type WrapOptions,
+  type WrapResult,
+} from './hooks/wrapper.js';
 
