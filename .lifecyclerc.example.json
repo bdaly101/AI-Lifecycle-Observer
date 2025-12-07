@@ -1,0 +1,107 @@
+{
+  "$schema": "https://lifecycle-observer.dev/schema.json",
+  "enabled": true,
+  "projectsDir": "~/Dev/shared",
+  "dataDir": "~/.lifecycle-observer",
+  "logLevel": "info",
+  
+  "projects": [
+    {
+      "name": "AI-PR-Dev",
+      "path": "~/Dev/shared/AI-PR-Dev",
+      "enabled": true,
+      "tools": ["ai-pr-dev"]
+    },
+    {
+      "name": "AI-Feature-Builder",
+      "path": "~/Dev/shared/AI-Feature-Builder",
+      "enabled": true,
+      "tools": ["ai-feature-builder"]
+    },
+    {
+      "name": "AI-Test-Generator",
+      "path": "~/Dev/shared/AI-Test-Generator",
+      "enabled": true,
+      "tools": ["ai-test-generator"]
+    },
+    {
+      "name": "AI-Docs-Generator",
+      "path": "~/Dev/shared/AI-Docs-Generator",
+      "enabled": true,
+      "tools": ["ai-docs-generator"]
+    },
+    {
+      "name": "AI-SQL-Dev",
+      "path": "~/Dev/shared/AI-SQL-Dev",
+      "enabled": true,
+      "tools": ["ai-sql-dev"]
+    }
+  ],
+  
+  "ai": {
+    "enabled": true,
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250929",
+    "apiKey": "env:ANTHROPIC_API_KEY",
+    "maxTokens": 4096,
+    "temperature": 0.3,
+    "analyzeEveryNExecutions": 10
+  },
+  
+  "alerts": {
+    "enabled": true,
+    "thresholds": {
+      "consecutiveFailures": 3,
+      "failureRateThreshold": 0.30,
+      "failureRateWindow": 86400000,
+      "avgDurationMultiplier": 3,
+      "timeoutThreshold": 300000,
+      "secretsDetected": true,
+      "permissionEscalation": true,
+      "unprotectedBranchPush": true,
+      "apiFailureRateThreshold": 0.50,
+      "apiFailureRateWindow": 3600000,
+      "rateLimitHits": 5,
+      "gitOperationFailures": 5,
+      "gitOperationWindow": 3600000,
+      "coverageDropThreshold": 0.05,
+      "minimumCoverage": 0.70
+    },
+    "channels": {
+      "console": true,
+      "file": true,
+      "github": {
+        "enabled": false,
+        "token": "env:GITHUB_TOKEN",
+        "createIssues": true,
+        "issueLabels": ["lifecycle-alert", "automated"]
+      },
+      "slack": {
+        "enabled": false,
+        "webhookUrl": "env:SLACK_WEBHOOK_URL",
+        "channel": "#dev-alerts"
+      }
+    },
+    "escalation": {
+      "enabled": false,
+      "criticalDelayMinutes": 15,
+      "escalateTo": []
+    }
+  },
+  
+  "reporting": {
+    "enabled": true,
+    "autoUpdateFiles": true,
+    "updateFrequency": "immediate",
+    "futureImprovementsFilename": "FUTURE-IMPROVEMENTS.md",
+    "includeMetrics": true,
+    "includeHistory": true
+  },
+  
+  "database": {
+    "path": "~/.lifecycle-observer/data.db",
+    "retentionDays": 90,
+    "aggregationIntervals": ["hourly", "daily", "weekly"]
+  }
+}
+
