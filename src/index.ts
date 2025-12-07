@@ -18,7 +18,6 @@ export {
   expandPath,
   resolveEnvValue,
   DEFAULT_CONFIG,
-  DEFAULT_ALERT_THRESHOLDS,
 } from './config/index.js';
 
 // Export utilities
@@ -114,6 +113,22 @@ export {
   type DetectionRunResult,
 } from './core/index.js';
 
+// Export alert system
+export {
+  AlertManager,
+  getAlertManager,
+  createAlertManager,
+  DEFAULT_ALERT_THRESHOLDS,
+  BUILTIN_ALERT_RULES,
+  getEnabledAlertRules,
+  getAlertRuleById,
+  getAlertRulesByCategory,
+  getAlertRulesBySeverity,
+  getCriticalAlertRules,
+  type AlertCheckResult,
+  type AlertManagerOptions,
+} from './core/index.js';
+
 // Export AI analysis
 export {
   ClaudeClient,
@@ -127,4 +142,24 @@ export {
   type AIAnalysisOptions,
   type AIAnalysisResult,
 } from './ai/index.js';
+
+// Export reporters
+export {
+  UrgentAlertReporter,
+  getAlertReporter,
+  createAlertReporter,
+  ConsoleChannel,
+  createConsoleChannel,
+  FileChannel,
+  createFileChannel,
+  GitHubChannel,
+  createGitHubChannel,
+  type NotificationChannel,
+  type NotificationResult,
+  type AlertReporterConfig,
+  type AlertReportResult,
+  type ConsoleChannelOptions,
+  type FileChannelOptions,
+  type GitHubChannelOptions,
+} from './reporters/index.js';
 

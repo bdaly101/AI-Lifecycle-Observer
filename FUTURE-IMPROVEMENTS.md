@@ -209,6 +209,68 @@
 
 ---
 
+## Phase 4 Observations
+
+### What Worked Well
+
+- ✅ **Alert Rules Architecture** - Clean separation of rules, manager, and channels
+- ✅ **Notification Channel Interface** - Easy to add new notification methods
+- ✅ **Console Channel** - ANSI colors make alerts highly visible
+- ✅ **File Channel** - Markdown format works well for tracking
+- ✅ **29 unit tests** - Good coverage of alert rule conditions
+
+### Friction Points
+
+1. **Unused Import Cleanup**
+   - **Issue**: Had to remove unused imports (`updateAlert`, `hoursAgo`, `logger`, `formatSeverity`)
+   - **Impact**: Minor - TypeScript catches these immediately
+   - **Tool Idea**: `lint-unused-imports` pre-commit hook
+
+2. **Function Signature Mismatch**
+   - **Issue**: `isRuleInCooldown` only takes 2 params, not 3 as I initially wrote
+   - **Impact**: Minor - TypeScript caught it
+   - **Observation**: Always check function signatures before use
+
+3. **Duplicate Export**
+   - **Issue**: `DEFAULT_ALERT_THRESHOLDS` exported from both config and core
+   - **Impact**: Had to remove one export
+   - **Observation**: Plan export hierarchy before implementation
+
+### Architecture Highlights
+
+1. **Channel-Based Notifications**
+   - Channels are independent and configurable
+   - UrgentAlertReporter orchestrates all channels
+   - Easy to disable individual channels
+
+2. **Alert Lifecycle**
+   - Clear states: active → acknowledged → resolved/suppressed
+   - Auto-resolve support for rules that define it
+   - Database-backed cooldown management
+
+3. **GitHub Integration**
+   - Uses `gh` CLI for simplicity
+   - Falls back gracefully if not authenticated
+   - Creates well-formatted issues
+
+### Potential New Tools Identified
+
+1. **`alert-dashboard`** - Web UI for alert management
+   - View active/historical alerts
+   - Acknowledge/resolve from browser
+   - Real-time updates
+
+2. **`alert-digest`** - Periodic alert summary
+   - Daily/weekly email or Slack digest
+   - Aggregates alerts by severity/category
+   - Reduces notification noise
+
+3. **`channel-tester`** - Test notification channels
+   - Send test alerts to verify configuration
+   - Useful for initial setup
+
+---
+
 ## Development Efficiency
 
 | Phase | Time Estimate | Actual | Efficiency | Blockers |
@@ -216,6 +278,7 @@
 | Phase 1 | 2 weeks | 1 session | ~95% | Branch protection failed |
 | Phase 2 | 2 weeks | 1 session | ~98% | Minor type issues |
 | Phase 3 | 2 weeks | 1 session | ~97% | Secret regex strictness |
+| Phase 4 | 2 weeks | 1 session | ~98% | Minor unused import issues |
 
 ### Lessons Learned
 
@@ -227,6 +290,8 @@
 6. Tests provide confidence when refactoring
 7. Hybrid rule+AI detection balances speed and intelligence
 8. Test regex patterns with realistic data
+9. Channel-based notification architecture is flexible
+10. Check function signatures before use
 
 ---
 

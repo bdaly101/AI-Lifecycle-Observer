@@ -31,3 +31,27 @@ export {
   type DetectionRunResult,
 } from './improvement-detector.js';
 
+export {
+  BUILTIN_ALERT_RULES,
+  getEnabledAlertRules,
+  getAlertRuleById,
+  getAlertRulesByCategory,
+  getAlertRulesBySeverity,
+  getCriticalAlertRules,
+  countRateLimitErrors,
+  countConsecutiveFailures,
+  countGitErrors,
+  hasSecretInOutput,
+  getPerformanceDegradation,
+  getTriggeringExecution,
+} from './alert-rules.js';
+
+export {
+  AlertManager,
+  getAlertManager,
+  createAlertManager,
+  DEFAULT_ALERT_THRESHOLDS,
+  type AlertCheckResult,
+  type AlertManagerOptions,
+} from './alert-manager.js';
+
