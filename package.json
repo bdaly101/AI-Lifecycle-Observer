@@ -1,0 +1,90 @@
+{
+  "name": "lifecycle-observer",
+  "version": "0.1.0",
+  "description": "Self-learning observer agent that monitors AI dev lifecycle tools, tracks execution metrics, detects improvement opportunities, and manages urgent issue alerts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "lifecycle-observer": "dist/cli/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./wrapper": {
+      "types": "./dist/hooks/wrapper.d.ts",
+      "import": "./dist/hooks/wrapper.js"
+    }
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "dev": "tsx watch src/cli/index.ts",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --reporter=verbose",
+    "db:migrate": "tsx src/database/migrate.ts",
+    "db:reset": "rm -f data/lifecycle.db && npm run db:migrate",
+    "cli": "tsx src/cli/index.ts",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "lifecycle",
+    "observer",
+    "monitoring",
+    "metrics",
+    "ai-tools",
+    "dev-workflow",
+    "improvements",
+    "alerts"
+  ],
+  "author": "Brendan Daly",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdaly101/AI-Lifecycle-Observer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bdaly101/AI-Lifecycle-Observer/issues"
+  },
+  "homepage": "https://github.com/bdaly101/AI-Lifecycle-Observer#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "better-sqlite3": "^11.0.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "handlebars": "^4.7.8",
+    "ora": "^8.0.0",
+    "pino": "^9.0.0",
+    "pino-pretty": "^11.0.0",
+    "simple-git": "^3.24.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.10.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
+
