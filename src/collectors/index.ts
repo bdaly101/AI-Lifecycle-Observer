@@ -19,3 +19,14 @@ export {
   type ErrorAnalysis,
 } from './error-collector.js';
 
+export {
+  EfficiencyAnalyzer,
+  getEfficiencyAnalyzer,
+  createEfficiencyAnalyzer,
+  type UsagePattern,
+  type WorkflowSequence,
+  type Bottleneck,
+  type ToolUtilization,
+  type EfficiencyAnalysis,
+} from './efficiency-analyzer.js';
+
