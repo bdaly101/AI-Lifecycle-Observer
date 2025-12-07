@@ -334,6 +334,75 @@
 
 ---
 
+## Phase 6 Observations
+
+### What Worked Well
+
+- ✅ **CLI Architecture** - Commander.js provides clean command structure
+- ✅ **Global Options** - `--config`, `--verbose`, `--json` work across all commands
+- ✅ **Output Formatting** - Box-drawing characters and emojis make output readable
+- ✅ **Generic output() function** - Type-safe formatter parameter pattern
+- ✅ **90 tests still pass** - No regression from CLI additions
+- ✅ **All 6 commands implemented** - init, status, metrics, alerts, report, observe
+
+### Friction Points
+
+1. **Function Signature Mismatches**
+   - **Issue**: Several functions had different signatures than expected (loadConfig, initDatabase, initLogger)
+   - **Impact**: Required checking actual signatures and adjusting calls
+   - **Tool Idea**: `api-diff` - Compare expected vs actual function signatures
+
+2. **Unused Variable Warnings**
+   - **Issue**: Many unused parameters like `config` and `globalOpts` in execute functions
+   - **Impact**: Had to prefix with `_` to suppress warnings
+   - **Observation**: Consider if these should be used for future extensibility
+
+3. **Type Inference for Formatters**
+   - **Issue**: `output()` formatter type didn't infer correctly from `unknown`
+   - **Impact**: Made `output()` generic to fix type safety
+   - **Observation**: Generic functions provide better type inference
+
+### Architecture Highlights
+
+1. **Command Structure**
+   - Each command in separate file under `src/cli/commands/`
+   - Consistent pattern: register function, execute function, format function
+   - Global context initialization via `initContext()`
+
+2. **Subcommands for Alerts**
+   - `alerts ack <id>`, `alerts resolve <id>`, `alerts suppress <id>`
+   - Commander.js subcommands work well for action-based commands
+   - Each subcommand has its own action handler
+
+3. **Daemon Mode for Observe**
+   - Single pass mode (default) vs daemon mode (`--daemon`)
+   - Graceful shutdown handling for SIGINT/SIGTERM
+   - Configurable interval for daemon polling
+
+4. **Dry-Run Support**
+   - Report command supports `--dry-run` for previewing without writing
+   - Shows content length that would be generated
+   - Useful for testing report templates
+
+### Potential New Tools Identified
+
+1. **`api-diff`** - Compare function signatures
+   - Show expected vs actual parameters
+   - Useful when integrating with existing code
+   - Could be part of TypeScript tooling
+
+2. **`cli-tester`** - Integration tests for CLI commands
+   - Run commands with mock config
+   - Verify output format
+   - Test error handling
+
+3. **`command-generator`** - Scaffold new CLI commands
+   - Generate command template with standard structure
+   - Include register, execute, format functions
+   - Reduce boilerplate
+
+---
+
 ## Development Efficiency
 
 | Phase | Time Estimate | Actual | Efficiency | Blockers |
@@ -343,6 +412,7 @@
 | Phase 3 | 2 weeks | 1 session | ~97% | Secret regex strictness |
 | Phase 4 | 2 weeks | 1 session | ~98% | Minor unused import issues |
 | Phase 5 | 2 weeks | 1 session | ~96% | Type mismatches, function signatures |
+| Phase 6 | 2 weeks | 1 session | ~95% | Function signature mismatches |
 
 ### Lessons Learned
 
@@ -358,6 +428,10 @@
 10. Check function signatures before use
 11. Verify type/interface property names against actual definitions
 12. Keep repository APIs consistent - avoid changing parameter counts
+13. Use generic functions for type-safe formatter parameters
+14. Prefix unused parameters with `_` to suppress warnings
+15. Subcommands work well for action-based CLI operations
+16. Dry-run mode is valuable for testing generators
 
 ---
 
